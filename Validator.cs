@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Validation;
 
-namespace Group_2_Library;
+namespace Validation;
 
 public class Validator
 {

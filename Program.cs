@@ -22,6 +22,7 @@ List<Book> ourBooks = new List<Book>()
 Console.WriteLine("Welcome to your local library!");
 
 
+
 while (true)
 {
     Console.WriteLine("Would you like to search for a book or display a list? L to list / S to search.");
@@ -57,8 +58,15 @@ while (true)
                     Console.WriteLine(b.GetDetails());
                 }
                 Console.WriteLine();
-                Console.WriteLine("Would you like to check out a book? Y/N");
-                string bchoice = Console.ReadLine ()
+                Console.WriteLine("Pease specify which book you would you like to check out.");
+                string bchoice = Console.ReadLine().ToLower().Trim();
+                //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
+                //int indexChoice = ourBooks.IndexOf(bchoice);
+                int val = ourBooks(b => b.Title == bchoice);
+                //if (bchoice => ")
+                {
+                    Console.WriteLine("Which book do you want to check out? Please type in an author.");
+                }
 
                 break;
 
