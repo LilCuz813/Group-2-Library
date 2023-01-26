@@ -57,6 +57,9 @@ while (true)
                     Console.WriteLine(b.GetDetails());
                 }
                 Console.WriteLine();
+                Console.WriteLine("Would you like to check out a book? Y/N");
+                string bchoice = Console.ReadLine ()
+
                 break;
 
             }
@@ -95,4 +98,45 @@ static void PrintHeader()
 }
 
 Console.ReadLine();
+List<Book> choiceBook = new List<Book>()
+static string AddItemList(string x)
+int index = -1;
+if (ourBooks.ContainsKey(b))
+{
+    //item existing
+    cart.Add(choice);
+    Console.WriteLine($"{choice} was added to cart.");
+}
+//tryParse returns true/false. ALSO out keyword returns back the parsed number if successful
+else if (int.TryParse(choice, out index))
+{
+    Console.WriteLine($"{menu.OrderByDescending(i => i.Value).ElementAt(index).Key} was added to cart.");
+    cart.Add(menu.OrderByDescending(i => i.Value).ElementAt(index).Key);
+}
+else
+{
+    //item doesn't exist
+    Console.WriteLine($"{choice} is not on the menu.");
+}
 
+//Asking to buy more
+while (true)
+{
+    Console.WriteLine("Would you like to buy another item? y/n");
+    string continueChoice = Console.ReadLine();
+    if (continueChoice == "y")
+    {
+        Console.Clear();
+        buying = true;
+        break;
+    }
+    else if (continueChoice == "n")
+    {
+        buying = false;
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Invalid input");
+    }
+}
