@@ -23,7 +23,7 @@ namespace Group_2_Library
 		//Methods
 		public string GetDetails()
 		{
-			return $"Title: {Title}\tAuthor: {Author}\tGenre: {Genre}\tStatus: {Available}\tDueDate: {DueDate}";
+			return $"{Title}\t\t{Author}\t{Genre}\t{Available}\t{DueDate}";
 		}
 	}
 }
