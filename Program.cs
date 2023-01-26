@@ -1,4 +1,5 @@
 ﻿using Group_2_Library;
+using Microsoft.VisualBasic;
 using static System.Reflection.Metadata.BlobBuilder;
 
 //Book list
@@ -29,8 +30,8 @@ while (true)
     if (choice == "l")
     {
         //list all book info (done)
-        Console.WriteLine("Title\t\tAuthor\tGenre\tAvailability\tDue Date");
-        foreach (Book b in ourBooks)
+        PrintHeader();
+        foreach (Book b in ourBooks.OrderBy(b=>b.Title))
         {
             Console.WriteLine(b.GetDetails());
         }
@@ -48,14 +49,30 @@ while (true)
             {
                 //search by author
                 Console.Write("Please enter author name: ");
-                string searchAuthor = Console.ReadLine();
+                string searchAuthor = Console.ReadLine().Trim();
+                Console.Clear();
+                PrintHeader();
+                foreach (Book b in ourBooks.OrderBy(b=>b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
+                {
+                    Console.WriteLine(b.GetDetails());
+                }
+                Console.WriteLine();
+                break;
 
             }
             else if (searchType == "k")
             {
                 //search by keyword
-                Console.Write("Please enter author name: ");
+                Console.Write("Please enter title keyword: ");
                 string searchKeyword = Console.ReadLine();
+                Console.Clear();
+                PrintHeader();
+                foreach (Book b in ourBooks.OrderBy(b=>b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
+                {
+                    Console.WriteLine(b.GetDetails());
+                }
+                Console.WriteLine();
+                break;
             }
             else
             {
@@ -69,6 +86,12 @@ while (true)
     {
         Console.WriteLine("Invalid input, please try again.");
     }
+}
+
+static void PrintHeader()
+{
+    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", $"Title", $"Author", $"Genre", $"Available", $"DueDate"));
+    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", "========", "========", "========", "========", "========"));
 }
 
 Console.ReadLine();

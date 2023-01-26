@@ -23,8 +23,9 @@ namespace Group_2_Library
 		//Methods
 		public string GetDetails()
 		{
-			return $"{Title}\t\t{Author}\t{Genre}\t{Available}\t{DueDate}";
+			return String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}",$"{Title}",$"{ Author}", $"{ Genre}", $"{ Available}", $"{ DueDate}");
 		}
+
 	}
 }
 
