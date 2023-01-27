@@ -38,6 +38,7 @@ while (continueQ)
     while (stillWorking)
     {
         stillWorking = true;
+        stillSearching = true;
         string choice = "";
         Console.WriteLine("You can display a list of all books, or search for a book. L to list / S to search.");
         choice = Console.ReadLine().ToLower().Trim();
@@ -90,14 +91,13 @@ while (continueQ)
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"You're checking out:\n");
-                            PrintHeader();
-                            foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(bchoice)))
-                            {
-                                Console.WriteLine(b.GetDetails());
-                                bag.Add(b);
-                            }
+                            Console.WriteLine($"You're checking out: {ourBooks[indexChoice].Title}");
+                            bag.Add(ourBooks[indexChoice]);
+                    
+                           
+
                             //FUNCTIONALITY FOR CHECK-OUT
+
                             stillSearching = false;
                             stillWorking = false;
                             break;
@@ -116,6 +116,7 @@ while (continueQ)
                         Console.WriteLine(b.GetDetails());
                     }
                     Console.WriteLine();
+
                     //targeting book choice
                     while (true)
                     {
@@ -130,13 +131,9 @@ while (continueQ)
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"You're checking out:\n");
-                            PrintHeader();
-                            foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(bchoice)))
-                            {
-                                Console.WriteLine(b.GetDetails());
-                                bag.Add(b);
-                            }
+                            Console.WriteLine($"You're checking out:{ourBooks[indexChoice].Title}");
+                            bag.Add(ourBooks[indexChoice]);
+
                             //FUNCTIONALITY FOR CHECK-OUT
                             stillSearching = false;
                             stillWorking = false;
