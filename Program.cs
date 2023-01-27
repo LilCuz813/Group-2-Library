@@ -73,7 +73,6 @@ while (continueQ)
                     foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
                     {
                         Console.WriteLine(b.GetDetails());
-
                     }
                     Console.WriteLine();
 
@@ -93,8 +92,8 @@ while (continueQ)
                             Console.Clear();
                             Console.WriteLine($"You're checking out: {ourBooks[indexChoice].Title}");
                             bag.Add(ourBooks[indexChoice]);
-                    
-                           
+                            ourBooks[indexChoice].UpdateDueDate();
+
 
                             //FUNCTIONALITY FOR CHECK-OUT
 
@@ -133,6 +132,7 @@ while (continueQ)
                             Console.Clear();
                             Console.WriteLine($"You're checking out:{ourBooks[indexChoice].Title}");
                             bag.Add(ourBooks[indexChoice]);
+                            ourBooks[indexChoice].UpdateDueDate();
 
                             //FUNCTIONALITY FOR CHECK-OUT
                             stillSearching = false;
@@ -191,7 +191,6 @@ PrintHeader();
 
 foreach (Book b in bag)
 {
-    b.UpdateDueDate();
     Console.WriteLine(b.GetDetails());
 }
 
