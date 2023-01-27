@@ -8,7 +8,7 @@ namespace Group_2_Library
 		public string Author { get; set; }
 		public string Genre { get; set; }
 		public bool Available { get; set; }
-		public DateTime DueDate { get; set; }
+		public DateTime? DueDate { get; set; }
 
 		//Constructors
 		public Book(string _title, string _author, string _genre)
@@ -17,7 +17,7 @@ namespace Group_2_Library
 			Author = _author;
 			Genre = _genre;
 			Available = true;
-			DueDate = DateTime.Today;
+			DueDate = null;
 		}
 
 		//Methods

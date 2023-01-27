@@ -1,6 +1,9 @@
 ﻿using Group_2_Library;
 using Microsoft.VisualBasic;
 using static System.Reflection.Metadata.BlobBuilder;
+using Validation;
+
+//Validator.GetContinue();
 
 //Book list
 List<Book> ourBooks = new List<Book>()
@@ -19,10 +22,14 @@ List<Book> ourBooks = new List<Book>()
     new Book("The Lion, the Witch and the Wardrobe", "C. S. Lewis", "Fantasy")
 };
 
+//Adding days when checking out book
+//DateTime addedDateTime = DateTime.Now.AddDays(14)
+
 List<Book> bag = new List<Book>();
 
-bool stillWorking = true;
 bool continueQ = true;
+bool stillWorking = true;
+bool stillSearching = true;
 
 Console.WriteLine("Welcome to your local library!");
 
@@ -46,7 +53,7 @@ while (continueQ)
         else if (choice == "s")
         {
             //search
-            while (true)
+            while (stillSearching)
             {
                 Console.WriteLine("You can search by author or title keyword. A for author / K for keyword.");
                 string searchType = Console.ReadLine().ToLower().Trim();
@@ -58,25 +65,37 @@ while (continueQ)
                     string searchAuthor = Console.ReadLine().Trim();
                     Console.Clear();
                     PrintHeader();
+
+                    //display search results
                     foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
                     {
                         Console.WriteLine(b.GetDetails());
-                        bag.Add(b);
+        
                     }
                     Console.WriteLine();
 
-                    //Console.WriteLine("Please enter the title you'd like to check out:");
-                    //string bchoice = Console.ReadLine().Trim();
-                    //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
-                    //int indexChoice = ourBooks.IndexOf(bchoice);
-                    //int val = ourBooks(b => b.Title == bchoice);
+                    //targeting book choice
+                    while (true)
+                    {
+                        Console.WriteLine("Please enter the title you'd like to check out:");
+                        string bchoice = Console.ReadLine().Trim(); 
+                        int indexChoice = ourBooks.FindIndex(b => b.Title.Contains(bchoice));
 
-                    //if (bchoice => ")
-                    //{
-                    //    Console.WriteLine("Which book do you want to check out? Please type in an author.");
-                    //}
-                    stillWorking = false;
-                    break;
+                        if (indexChoice == -1 || indexChoice > ourBooks.Count)
+                        {
+                            Console.WriteLine("Book not found. Please re-enter title.");
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("You're checking out.");
+                            //FUNCTIONALITY FOR CHECK-OUT
+                            stillSearching = false;
+                            stillWorking = false;
+                            break;
+                        }
+
+                    }
 
                 }
                 else if (searchType == "k")
