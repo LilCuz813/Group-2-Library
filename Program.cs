@@ -37,8 +37,10 @@ while (continueQ)
 {
     while (stillWorking)
     {
+        stillWorking = true;
+        string choice = "";
         Console.WriteLine("You can display a list of all books, or search for a book. L to list / S to search.");
-        string choice = Console.ReadLine().ToLower().Trim();
+        choice = Console.ReadLine().ToLower().Trim();
 
         if (choice == "l")
         {
@@ -70,7 +72,7 @@ while (continueQ)
                     foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
                     {
                         Console.WriteLine(b.GetDetails());
-        
+
                     }
                     Console.WriteLine();
 
@@ -78,8 +80,8 @@ while (continueQ)
                     while (true)
                     {
                         Console.WriteLine("Please enter the title you'd like to check out:");
-                        string bchoice = Console.ReadLine().Trim(); 
-                        int indexChoice = ourBooks.FindIndex(b => b.Title.Contains(bchoice));
+                        string bchoice = Console.ReadLine().Trim().ToLower();
+                        int indexChoice = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bchoice));
 
                         if (indexChoice == -1 || indexChoice > ourBooks.Count)
                         {
@@ -87,49 +89,78 @@ while (continueQ)
                         }
                         else
                         {
-                            Console.WriteLine();
-                            Console.WriteLine("You're checking out.");
+                            Console.Clear();
+                            Console.WriteLine($"You're checking out:\n");
+                            PrintHeader();
+                            foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(bchoice)))
+                            {
+                                Console.WriteLine(b.GetDetails());
+                                bag.Add(b);
+                            }
                             //FUNCTIONALITY FOR CHECK-OUT
                             stillSearching = false;
                             stillWorking = false;
                             break;
                         }
-
                     }
-
                 }
                 else if (searchType == "k")
                 {
                     //search by keyword
                     Console.Write("Please enter title keyword: ");
-                    string searchKeyword = Console.ReadLine();
+                    string searchKeyword = Console.ReadLine().Trim();
                     Console.Clear();
                     PrintHeader();
                     foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
                     {
                         Console.WriteLine(b.GetDetails());
-                        bag.Add(b);
                     }
                     Console.WriteLine();
-                    stillWorking = false;
-                    break;
+                    //targeting book choice
+                    while (true)
+                    {
+                        Console.WriteLine("Please enter the title you'd like to check out:");
+                        string bchoice = Console.ReadLine().Trim().ToLower();
+                        int indexChoice = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bchoice));
+
+                        if (indexChoice == -1 || indexChoice > ourBooks.Count)
+                        {
+                            Console.WriteLine("Book not found. Please re-enter title.");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"You're checking out:\n");
+                            PrintHeader();
+                            foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(bchoice)))
+                            {
+                                Console.WriteLine(b.GetDetails());
+                                bag.Add(b);
+                            }
+                            //FUNCTIONALITY FOR CHECK-OUT
+                            stillSearching = false;
+                            stillWorking = false;
+                            break;
+                        }
+                        stillWorking = false;
+                        break;
+                    }
                 }
+
                 else
                 {
                     //validate choice - search by author or keyword (done)
                     Console.WriteLine("Invalid input, please try again.");
                 }
             }
-
         }
         else //validate choice - list or search (done)
         {
             Console.WriteLine("Invalid input, please try again.");
         }
-
     }
 
-    while (true)
+    while (continueQ)
     {
         Console.WriteLine();
         Console.WriteLine("Would you like to go again? y/n");
@@ -138,6 +169,7 @@ while (continueQ)
         if (continueChoice == "y")
         {
             stillWorking = true;
+            continueQ = true;
             Console.WriteLine();
             break;
         }
@@ -161,6 +193,7 @@ PrintHeader();
 
 foreach (Book b in bag)
 {
+    b.UpdateDueDate();
     Console.WriteLine(b.GetDetails());
 }
 

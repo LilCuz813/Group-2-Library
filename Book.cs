@@ -26,6 +26,11 @@ namespace Group_2_Library
 			return String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}",$"{Title}",$"{ Author}", $"{ Genre}", $"{ Available}", $"{ DueDate}");
 		}
 
-	}
+        public virtual void UpdateDueDate()
+        {
+            DueDate = DateTime.Now.AddDays(14);
+        }
+
+    }
 }
 
