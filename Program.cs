@@ -19,85 +19,128 @@ List<Book> ourBooks = new List<Book>()
     new Book("The Lion, the Witch and the Wardrobe", "C. S. Lewis", "Fantasy")
 };
 
+bool stillWorking = true;
+bool continueQ = true;
+
 Console.WriteLine("Welcome to your local library!");
 
-
-
-while (true)
+while (continueQ)
 {
-    Console.WriteLine("Would you like to search for a book or display a list? L to list / S to search.");
-    string choice = Console.ReadLine().ToLower().Trim();
-
-    if (choice == "l")
+    while (stillWorking)
     {
-        //list all book info (done)
-        PrintHeader();
-        foreach (Book b in ourBooks.OrderBy(b=>b.Title))
+        Console.WriteLine("You can display a list of all books, or search for a book. L to list / S to search.");
+        string choice = Console.ReadLine().ToLower().Trim();
+
+        if (choice == "l")
         {
-            Console.WriteLine(b.GetDetails());
+            //list all book info (done)
+            PrintHeader();
+            foreach (Book b in ourBooks.OrderBy(b => b.Title))
+            {
+                Console.WriteLine(b.GetDetails());
+            }
+            break;
         }
-        break;
-    }
-    else if (choice == "s")
-    {
-        //search
-        while (true)
+        else if (choice == "s")
         {
-            Console.WriteLine("You can search by author or title keyword. A for author / K for keyword.");
-            string searchType = Console.ReadLine().ToLower().Trim();
-
-            if (searchType == "a")
+            //search
+            while (true)
             {
-                //search by author
-                Console.Write("Please enter author name: ");
-                string searchAuthor = Console.ReadLine().Trim();
-                Console.Clear();
-                PrintHeader();
-                foreach (Book b in ourBooks.OrderBy(b=>b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
-                {
-                    Console.WriteLine(b.GetDetails());
-                }
-                Console.WriteLine();
-                Console.WriteLine("Pease specify which book you would you like to check out.");
-                string bchoice = Console.ReadLine().ToLower().Trim();
-                //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
-                //int indexChoice = ourBooks.IndexOf(bchoice);
-                int val = ourBooks(b => b.Title == bchoice);
-                //if (bchoice => ")
-                {
-                    Console.WriteLine("Which book do you want to check out? Please type in an author.");
-                }
+                Console.WriteLine("You can search by author or title keyword. A for author / K for keyword.");
+                string searchType = Console.ReadLine().ToLower().Trim();
 
-                break;
-
-            }
-            else if (searchType == "k")
-            {
-                //search by keyword
-                Console.Write("Please enter title keyword: ");
-                string searchKeyword = Console.ReadLine();
-                Console.Clear();
-                PrintHeader();
-                foreach (Book b in ourBooks.OrderBy(b=>b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
+                if (searchType == "a")
                 {
-                    Console.WriteLine(b.GetDetails());
+                    //search by author
+                    Console.Write("Please enter author name: ");
+                    string searchAuthor = Console.ReadLine().Trim();
+                    Console.Clear();
+                    PrintHeader();
+                    foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
+                    {
+                        Console.WriteLine(b.GetDetails());
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Pease specify which book you would you like to check out.");
+                    string bchoice = Console.ReadLine().ToLower().Trim();
+                    //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
+                    //int indexChoice = ourBooks.IndexOf(bchoice);
+                    int val = ourBooks(b => b.Title == bchoice);
+                    //if (bchoice => ")
+                    {
+                        Console.WriteLine("Which book do you want to check out? Please type in an author.");
+                    }
+
+                    break;
+
                 }
-                Console.WriteLine();
-                break;
+                else if (searchType == "k")
+                {
+                    //search by keyword
+                    Console.Write("Please enter title keyword: ");
+                    string searchKeyword = Console.ReadLine();
+                    Console.Clear();
+                    PrintHeader();
+                    foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
+                    {
+                        Console.WriteLine(b.GetDetails());
+                    }
+                    Console.WriteLine();
+                    break;
+                }
+                else
+                {
+                    //validate choice - search by author or keyword (done)
+                    Console.WriteLine("Invalid input, please try again.");
+                }
             }
-            else
-            {
-                //validate choice - search by author or keyword (done)
-                Console.WriteLine("Invalid input, please try again.");
-            }
+
+        }
+        else //validate choice - list or search (done)
+        {
+            Console.WriteLine("Invalid input, please try again.");
         }
 
     }
-    else //validate choice - list or search (done)
+
+    while (true)
     {
-        Console.WriteLine("Invalid input, please try again.");
+        Console.WriteLine();
+        Console.WriteLine("Would you like to go again? y/n");
+        string continueChoice = Console.ReadLine();
+
+        if (continueChoice == "y")
+        {
+            stillWorking = true;
+            Console.WriteLine();
+            break;
+        }
+        else if (continueChoice == "n")
+        {
+            stillWorking = false;
+            continueQ = false;
+            Console.WriteLine();
+            break;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input.");
+        }
     }
 }
+
+
+
+
+Console.WriteLine("Goodbye.");
+Console.ReadLine();
+
+
+
+
+
+
+
 
 static void PrintHeader()
 {
@@ -105,46 +148,4 @@ static void PrintHeader()
     Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", "========", "========", "========", "========", "========"));
 }
 
-Console.ReadLine();
-List<Book> choiceBook = new List<Book>()
-static string AddItemList(string x)
-int index = -1;
-if (ourBooks.ContainsKey(b))
-{
-    //item existing
-    cart.Add(choice);
-    Console.WriteLine($"{choice} was added to cart.");
-}
-//tryParse returns true/false. ALSO out keyword returns back the parsed number if successful
-else if (int.TryParse(choice, out index))
-{
-    Console.WriteLine($"{menu.OrderByDescending(i => i.Value).ElementAt(index).Key} was added to cart.");
-    cart.Add(menu.OrderByDescending(i => i.Value).ElementAt(index).Key);
-}
-else
-{
-    //item doesn't exist
-    Console.WriteLine($"{choice} is not on the menu.");
-}
 
-//Asking to buy more
-while (true)
-{
-    Console.WriteLine("Would you like to buy another item? y/n");
-    string continueChoice = Console.ReadLine();
-    if (continueChoice == "y")
-    {
-        Console.Clear();
-        buying = true;
-        break;
-    }
-    else if (continueChoice == "n")
-    {
-        buying = false;
-        break;
-    }
-    else
-    {
-        Console.WriteLine("Invalid input");
-    }
-}
