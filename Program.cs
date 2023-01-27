@@ -213,9 +213,28 @@ while (true)
     {
         Console.WriteLine("Which book would you like to return?");
         string bookToReturn = Console.ReadLine().Trim();
+        int returnIndex = bag.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
+        try// When the user types in a book that doesn't exist or is not in their bag, it will return an exception 
+        {
+            if (bag[returnIndex].Available == false)
+            {
+                bag[returnIndex].Return();
+                bag.Remove(bag[returnIndex]);
+                
+            }
+            else
+            {
+                Console.WriteLine("Unable to return.");
+            }
+        }  
+        catch(ArgumentOutOfRangeException) 
+        {
+            Console.WriteLine("Book was not found checked out.");
+        }
+        
         //identify index # of book to return
         //flip available bool
-        Console.WriteLine("I'm returning");
+        
         break;
     }
     else if (returnOption == "n")

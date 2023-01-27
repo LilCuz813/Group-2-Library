@@ -31,7 +31,11 @@ namespace Group_2_Library
             DueDate = DateOnly.FromDateTime(DateTime.Now).AddDays(14);
             Available = false;
         }
-
+        public virtual void Return()
+        {
+            DueDate = null;
+            Available = true;
+        }
     }
 }
 
