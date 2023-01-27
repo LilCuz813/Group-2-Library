@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using static System.Reflection.Metadata.BlobBuilder;
 using Validation;
+using System.ComponentModel;
 
 //Validator.GetContinue();
 
@@ -51,8 +52,14 @@ while (continueQ)
             {
                 Console.WriteLine(b.GetDetails());
             }
+            Console.WriteLine("Please enter a title -- test method");
+            int selectedBook = BookSelection(ourBooks);
+            bag.Add(ourBooks[selectedBook]);
+            ourBooks[selectedBook].UpdateDueDate();
             break;
         }
+
+        
         else if (choice == "s")
         {
             //search
@@ -259,14 +266,36 @@ foreach (Book b in bag)
 Console.WriteLine("\nGoodbye.");
 Console.ReadLine();
 
+static int BookSelection(List<Book>books)
+{
+    
+    while (true)
+    {
+        Console.WriteLine("Please enter the title you'd like to check out:");
+        string bchoice = Console.ReadLine().Trim().ToLower();
+        int indexChoice = books.FindIndex(b => b.Title.ToLower().Contains(bchoice));
+
+        if (indexChoice == -1 || indexChoice > books.Count)
+        {
+            Console.WriteLine("Book not found. Please re-enter title.");
+        }
+        else
+        {
+            
+            return indexChoice;
+            
+        }
+         
+    }
+    return -1;
+    
+}
+ 
 
 
 
 
-
-
-
-static void PrintHeader()
+            static void PrintHeader()
 {
     Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", $"Title", $"Author", $"Genre", $"Available", $"DueDate"));
     Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", "========", "========", "========", "========", "========"));
