@@ -141,11 +141,10 @@ while (continueQ)
                             Console.Clear();
                             if (ourBooks[indexChoice].Available == true)
                             {
+                                //checkout
                                 Console.WriteLine($"You're checking out: {ourBooks[indexChoice].Title}");
                                 bag.Add(ourBooks[indexChoice]);
                                 ourBooks[indexChoice].UpdateDueDate();
-                                //FUNCTIONALITY FOR CHECK-OUT
-
                                 stillSearching = false;
                                 stillWorking = false;
                                 break;
@@ -176,7 +175,7 @@ while (continueQ)
         }
     }
 
-    //add getcontinuecustom()
+    //Validator.GetContinueCustom();
     while (continueQ)
     {
         Console.WriteLine();
@@ -204,7 +203,32 @@ while (continueQ)
     }
 }
 
-Console.Clear();
+//Return books
+while (true)
+{
+    Console.WriteLine("Do you have books to return? Y/N");
+    string returnOption = Console.ReadLine();
+
+    if (returnOption == "y")
+    {
+        Console.WriteLine("Which book would you like to return?");
+        string bookToReturn = Console.ReadLine().Trim();
+        //identify index # of book to return
+        //flip available bool
+        Console.WriteLine("I'm returning");
+        break;
+    }
+    else if (returnOption == "n")
+    {
+        Console.WriteLine("not returning");
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Wrong input. Returning Y/N");
+    }
+}
+
 Console.WriteLine("These are the books you are checking out:\n");
 PrintHeader();
 
