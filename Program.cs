@@ -19,6 +19,8 @@ List<Book> ourBooks = new List<Book>()
     new Book("The Lion, the Witch and the Wardrobe", "C. S. Lewis", "Fantasy")
 };
 
+List<Book> bag = new List<Book>();
+
 bool stillWorking = true;
 bool continueQ = true;
 
@@ -59,19 +61,21 @@ while (continueQ)
                     foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
                     {
                         Console.WriteLine(b.GetDetails());
+                        bag.Add(b);
                     }
                     Console.WriteLine();
-                    Console.WriteLine("Please enter the title you'd like to check out:");
-                    string bchoice = Console.ReadLine().Trim();
+
+                    //Console.WriteLine("Please enter the title you'd like to check out:");
+                    //string bchoice = Console.ReadLine().Trim();
                     //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
                     //int indexChoice = ourBooks.IndexOf(bchoice);
-                    int val = ourBooks(b => b.Title == bchoice);
+                    //int val = ourBooks(b => b.Title == bchoice);
 
                     //if (bchoice => ")
-                    {
-                        Console.WriteLine("Which book do you want to check out? Please type in an author.");
-                    }
-
+                    //{
+                    //    Console.WriteLine("Which book do you want to check out? Please type in an author.");
+                    //}
+                    stillWorking = false;
                     break;
 
                 }
@@ -85,8 +89,10 @@ while (continueQ)
                     foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
                     {
                         Console.WriteLine(b.GetDetails());
+                        bag.Add(b);
                     }
                     Console.WriteLine();
+                    stillWorking = false;
                     break;
                 }
                 else
@@ -130,10 +136,16 @@ while (continueQ)
     }
 }
 
+Console.Clear();
+Console.WriteLine("These are the books you are checking out:\n");
+PrintHeader();
 
+foreach (Book b in bag)
+{
+    Console.WriteLine(b.GetDetails());
+}
 
-
-Console.WriteLine("Goodbye.");
+Console.WriteLine("\nGoodbye.");
 Console.ReadLine();
 
 
