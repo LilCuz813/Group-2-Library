@@ -61,11 +61,12 @@ while (continueQ)
                         Console.WriteLine(b.GetDetails());
                     }
                     Console.WriteLine();
-                    Console.WriteLine("Pease specify which book you would you like to check out.");
-                    string bchoice = Console.ReadLine().ToLower().Trim();
+                    Console.WriteLine("Please enter the title you'd like to check out:");
+                    string bchoice = Console.ReadLine().Trim();
                     //int indexChoice = ourBooks.FindIndex(b => b.Contains(bchoice));
                     //int indexChoice = ourBooks.IndexOf(bchoice);
                     int val = ourBooks(b => b.Title == bchoice);
+
                     //if (bchoice => ")
                     {
                         Console.WriteLine("Which book do you want to check out? Please type in an author.");
