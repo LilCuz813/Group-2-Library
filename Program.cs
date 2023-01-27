@@ -90,16 +90,25 @@ while (continueQ)
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"You're checking out: {ourBooks[indexChoice].Title}");
-                            bag.Add(ourBooks[indexChoice]);
-                            ourBooks[indexChoice].UpdateDueDate();
+                            if (ourBooks[indexChoice].Available == true)
+                            {
+                                Console.WriteLine($"You're checking out: {ourBooks[indexChoice].Title}");
+                                bag.Add(ourBooks[indexChoice]);
+                                ourBooks[indexChoice].UpdateDueDate();
+                                //FUNCTIONALITY FOR CHECK-OUT
 
+                                stillSearching = false;
+                                stillWorking = false;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Sorry, {ourBooks[indexChoice].Title} is already checked out. Please select another book");
+                                stillSearching = false;
+                                stillWorking = false;
+                                break;
+                            }
 
-                            //FUNCTIONALITY FOR CHECK-OUT
-
-                            stillSearching = false;
-                            stillWorking = false;
-                            break;
                         }
                     }
                 }
