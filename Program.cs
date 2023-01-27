@@ -157,6 +157,7 @@ while (continueQ)
         }
     }
 
+    //add getcontinuecustom()
     while (continueQ)
     {
         Console.WriteLine();

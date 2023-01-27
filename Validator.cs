@@ -206,4 +206,35 @@ public class Validator
         return result;
     }
 
+    public static bool GetContinueCustom()
+    {
+        bool continueQ = true;
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Would you like to go again? y/n");
+            string continueChoice = Console.ReadLine();
+
+            if (continueChoice == "y")
+            {
+                bool stillWorking = true;
+                continueQ = true;
+                Console.WriteLine();
+                break;
+            }
+            else if (continueChoice == "n")
+            {
+                bool stillWorking = false;
+                continueQ = false;
+                Console.WriteLine();
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+            }
+        }
+        return continueQ;
+    } 
+
 }
