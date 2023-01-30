@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using static System.Reflection.Metadata.BlobBuilder;
 using Validation;
 using System.ComponentModel;
+using System.Linq;
 
 //Book list
 List<Book> ourBooks = TextReader();
@@ -72,6 +73,7 @@ while (continueQ)
             //search
             while (stillSearching)
             {
+               
                 Console.WriteLine("You can search by author or title keyword. A for author / K for keyword.");
                 string searchType = Console.ReadLine().ToLower().Trim();
 
@@ -80,18 +82,26 @@ while (continueQ)
                     //search by author
                     Console.Write("Please enter author name: ");
                     string searchAuthor = Console.ReadLine().Trim().ToLower();
-                    Console.Clear();
-                    PrintHeader();
+                    //Console.Clear();
 
-                    //display search results
-                    foreach (Book b in ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)))
+                    List<Book> authorResults = ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)).ToList();
+
+                    if (authorResults.Count > 0)
                     {
-                        Console.WriteLine(b.GetDetails());
+                        PrintHeader();
+                        foreach (Book b in authorResults)
+                        {
+                            Console.WriteLine(b.GetDetails());
+                        }
+                        Console.WriteLine();
                     }
-                    Console.WriteLine();
+                    else
+                    {
+                        Console.WriteLine("No search results");
+                        continue;
+                    }
 
                     //targeting book choice + checkout
-
                     int selectedBook = BookSelection(ourBooks);
                     bag.Add(ourBooks[selectedBook]);
                     ourBooks[selectedBook].UpdateDueDate();
@@ -104,13 +114,26 @@ while (continueQ)
                     //search by keyword
                     Console.Write("Please enter title keyword: ");
                     string searchKeyword = Console.ReadLine().Trim().ToLower();
-                    Console.Clear();
-                    PrintHeader();
-                    foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
+
+                    List<Book> keywordResults = ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)).ToList();
+
+
+                    if (keywordResults.Count > 0)
                     {
-                        Console.WriteLine(b.GetDetails());
+                        PrintHeader();
+                        foreach (Book b in keywordResults)
+                        {
+                            Console.WriteLine(b.GetDetails());
+                        }
+                        Console.WriteLine();
                     }
-                    Console.WriteLine();
+                    else
+                    {
+                        Console.WriteLine("No search results");
+                        continue;
+                    }
+
+             
 
                     //targeting book choice + checkout
                     int selectedBook = BookSelection(ourBooks);
@@ -188,10 +211,23 @@ List<Book> bookDrop = new List<Book>();
                 {
                    ourBooks[returnIndex].Return();
                    int bagReturnIndex = bag.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
-                   //bookDrop.Add(bag[bagReturnIndex]);
-                   //bag.Remove(bag[bagReturnIndex]);
 
-                Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
+                   
+
+                   if (bagReturnIndex != -1)
+                   {
+
+                    bookDrop.Add(bag[bagReturnIndex]);
+                    bag.Remove(bag[bagReturnIndex]);
+
+                   }
+                    else
+                    {
+                    bookDrop.Add(ourBooks[returnIndex]);
+                     }
+                   
+
+                  Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
 
                 }
                 else
