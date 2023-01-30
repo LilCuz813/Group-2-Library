@@ -158,12 +158,13 @@ while (continueQ)
         Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
     }
 }
-   
+
 }
 
 bool stillReturning = true;
 //Return books
 
+List<Book> bookDrop = new List<Book>();
 
     while (stillReturning)
     {
@@ -175,14 +176,21 @@ bool stillReturning = true;
             Console.WriteLine("Which book would you like to return?");
             string bookToReturn = Console.ReadLine().Trim().ToLower();
             int returnIndex = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
-            
+
             try// When the user types in a book that doesn't exist or is not in their bag, it will return an exception
             {
                 if (ourBooks[returnIndex].Available == false)
                 {
-                    ourBooks[returnIndex].Return();
-                    //bag.Remove(bag[returnIndex]);
-                    Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
+                   ourBooks[returnIndex].Return();
+                   int bagReturnIndex = bag.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
+                   //bookDrop.Add(bag[bagReturnIndex]);
+
+   
+                   //bag.Remove(bag[bagReturnIndex]);
+                  
+                  
+                  
+                   Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
 
                 }
                 else
@@ -204,18 +212,40 @@ bool stillReturning = true;
             Console.WriteLine("Invalid input. Y to return a book / N to complete visit.");
         }
     }
-   
 
-Console.WriteLine("These are the books you are checking out:\n");
-PrintHeader();
-
-foreach (Book b in bag.Where(b => b.Available == false))
+//Summary of activity
+if (bag.Count <= 0)
 {
-    Console.WriteLine(b.GetDetails());
+    Console.WriteLine("You aren't taking any books home today.");
+}
+else
+{
+    Console.WriteLine("These are the books you are checking out:\n");
+    PrintHeader();
+
+    foreach (Book b in bag.Where(b => b.Available == false))
+    {
+        Console.WriteLine(b.GetDetails());
+    }
 }
 
+if (bookDrop.Count <= 0)
+{
+    Console.WriteLine("You did not return any books today.");
+}
+else
+{
+    Console.WriteLine("You returned:");
+    PrintHeader();
+
+    foreach (Book b in bookDrop)
+    {
+        Console.WriteLine(b.GetDetails());
+    }
+}
+
+
 Console.WriteLine("\nGoodbye.");
-Console.ReadLine();
 
 TextWriter(ourBooks);
 
