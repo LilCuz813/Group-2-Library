@@ -5,8 +5,8 @@ The Great Gatsby|F. Scott Fitzgerald|Fiction|True|
 Murder on the Orient Express|Agatha Christie|Mystery|True|
 The Hound of the Baskervilles|Arthur Conan Doyle|Mystery|False|2/13/2023
 Gone with the Wind|Margaret Mitchell|Romance|True|
-Jane Eyre|Jane Austen|Romance|True|
+Jane Eyre|Jane Austen|Romance|False|2/13/2023
 Dune|Frank Herbert|Science fiction|True|
 Ender's Game|Orson Scott Card|Science fiction|True|
-The Hobbit|J. R. R. Tolkien|Fantasy|True|
+The Hobbit|J. R. R. Tolkien|Fantasy|False|2/13/2023
 The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|False|2/13/2023

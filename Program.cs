@@ -53,7 +53,7 @@ while (continueQ)
                 {
                     //search by author
                     Console.Write("Please enter author name: ");
-                    string searchAuthor = Console.ReadLine().Trim();
+                    string searchAuthor = Console.ReadLine().Trim().ToLower();
                     Console.Clear();
                     PrintHeader();
 
@@ -77,7 +77,7 @@ while (continueQ)
                 {
                     //search by keyword
                     Console.Write("Please enter title keyword: ");
-                    string searchKeyword = Console.ReadLine().Trim();
+                    string searchKeyword = Console.ReadLine().Trim().ToLower();
                     Console.Clear();
                     PrintHeader();
                     foreach (Book b in ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)))
@@ -182,7 +182,7 @@ while (true)
 Console.WriteLine("These are the books you are checking out:\n");
 PrintHeader();
 
-foreach (Book b in bag)
+foreach (Book b in bag.Where(b => b.Available == false))
 {
     Console.WriteLine(b.GetDetails());
 }
