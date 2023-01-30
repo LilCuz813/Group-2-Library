@@ -20,8 +20,17 @@ namespace Group_2_Library
 			DueDate = null;
 		}
 
-		//Methods
-		public string GetDetails()
+        public Book(string _title, string _author, string _genre, bool _available, DateOnly? _duedate)
+        {
+            Title = _title;
+            Author = _author;
+            Genre = _genre;
+            Available = _available;
+            DueDate = _duedate;
+        }
+
+        //Methods
+        public string GetDetails()
 		{
 			return String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}",$"{Title}",$"{ Author}", $"{ Genre}", $"{ Available}", $"{ DueDate}");
 		}
