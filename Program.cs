@@ -10,6 +10,7 @@ List<Book> ourBooks = TextReader();
 List<Book> bag = new List<Book>();
 
 bool continueQ = true;
+bool taskSelection = true;
 bool stillWorking = true;
 bool stillSearching = true;
 
@@ -17,6 +18,31 @@ Console.WriteLine("Welcome to your local library!");
 
 while (continueQ)
 {
+    while (taskSelection)
+    {
+        Console.WriteLine("Would you like to return books, or borrow? R for return / B for borrow.");
+        string userTask = Console.ReadLine().ToLower().Trim();
+
+        if (userTask == "r")
+        {
+            stillWorking = false;
+            continueQ = false;
+            taskSelection = false;
+            
+        }
+        else if (userTask == "b")
+        {
+            stillWorking = true;
+            taskSelection = false;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. R for return / B for borrow.");
+        }
+    }
+
+
+
     while (stillWorking)
     {
         stillWorking = true;
@@ -113,7 +139,7 @@ while (continueQ)
     {
         Console.WriteLine();
         Console.WriteLine("Would you like to go again? y/n");
-        string continueChoice = Console.ReadLine();
+        string continueChoice = Console.ReadLine().ToLower().Trim();
 
         if (continueChoice == "y")
         {
@@ -139,8 +165,9 @@ while (continueQ)
 //Return books
 while (true)
 {
-    Console.WriteLine("Do you have books to return? Y/N");
-    string returnOption = Console.ReadLine();
+    
+    Console.WriteLine("Return a book? Y/N");
+    string returnOption = Console.ReadLine().ToLower().Trim();
 
     if (returnOption == "y")
     {
