@@ -1,5 +1,5 @@
 The Catcher in the Rye|J. D. Salinger|Fiction|True|
-To Kill a Mockingbird|Harper Lee|Fiction|False|2/13/2023
+To Kill a Mockingbird|Harper Lee|Fiction|True|
 Great Expectations|Charles Dickens|Fiction|True|
 The Great Gatsby|F. Scott Fitzgerald|Fiction|True|
 Murder on the Orient Express|Agatha Christie|Mystery|True|
@@ -8,5 +8,5 @@ Gone with the Wind|Margaret Mitchell|Romance|True|
 Jane Eyre|Jane Austen|Romance|False|2/13/2023
 Dune|Frank Herbert|Science fiction|True|
 Ender's Game|Orson Scott Card|Science fiction|True|
-The Hobbit|J. R. R. Tolkien|Fantasy|False|2/13/2023
-The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|False|2/13/2023
+The Hobbit|J. R. R. Tolkien|Fantasy|True|
+The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|True|

@@ -13,6 +13,7 @@ bool continueQ = true;
 bool taskSelection = true;
 bool stillBrowsing = true;
 bool stillSearching = true;
+bool repeatBorrowing = true;
 
 Console.WriteLine("Welcome to your local library!");
 
@@ -28,7 +29,7 @@ while (continueQ)
             stillBrowsing = false;
             continueQ = false;
             taskSelection = false;
-            break;
+            repeatBorrowing = false;
             
         }
         else if (userTask == "b")
@@ -135,7 +136,7 @@ while (continueQ)
 
         // Still want to borrow books?
 
-    while(continueQ)
+    while(repeatBorrowing)
     {
     Console.WriteLine();
     Console.WriteLine("Would you like to borrow another book? Y to borrow a book / N to complete visit.");
@@ -144,19 +145,23 @@ while (continueQ)
     if (continueChoice == "y")
     {
         stillBrowsing = true;
-        continueQ = true;
+            continueQ = true;
         Console.WriteLine();
+            break;
     }
     else if (continueChoice == "n")
     {
         stillBrowsing = false;
         continueQ = false;
         Console.WriteLine();
+            break;
     }
     else
     {
         Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
     }
+
+        break;
 }
 
 }
@@ -184,13 +189,9 @@ List<Book> bookDrop = new List<Book>();
                    ourBooks[returnIndex].Return();
                    int bagReturnIndex = bag.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
                    //bookDrop.Add(bag[bagReturnIndex]);
-
-   
                    //bag.Remove(bag[bagReturnIndex]);
-                  
-                  
-                  
-                   Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
+
+                Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
 
                 }
                 else
