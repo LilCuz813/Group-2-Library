@@ -11,7 +11,7 @@ List<Book> bag = new List<Book>();
 
 bool continueQ = true;
 bool taskSelection = true;
-bool stillWorking = true;
+bool stillBrowsing = true;
 bool stillSearching = true;
 
 Console.WriteLine("Welcome to your local library!");
@@ -25,7 +25,7 @@ while (continueQ)
 
         if (userTask == "r")
         {
-            stillWorking = false;
+            stillBrowsing = false;
             continueQ = false;
             taskSelection = false;
             break;
@@ -33,7 +33,7 @@ while (continueQ)
         }
         else if (userTask == "b")
         {
-            stillWorking = true;
+            stillBrowsing = true;
             taskSelection = false;
         }
         else
@@ -43,9 +43,9 @@ while (continueQ)
     }
 
 
-    while (stillWorking)
+    while (stillBrowsing)
     {
-        stillWorking = true;
+        stillBrowsing = true;
         stillSearching = true;
         string choice = "";
         Console.WriteLine("You can display a list of all books, or search for a book. L to list / S to search.");
@@ -96,7 +96,7 @@ while (continueQ)
                     ourBooks[selectedBook].UpdateDueDate();
 
                     stillSearching = false;
-                    stillWorking = false;
+                    stillBrowsing = false;
                 }
                 else if (searchType == "k")
                 {
@@ -117,7 +117,7 @@ while (continueQ)
                     ourBooks[selectedBook].UpdateDueDate();
 
                     stillSearching = false;
-                    stillWorking = false;
+                    stillBrowsing = false;
                 }
 
                 else
@@ -135,29 +135,29 @@ while (continueQ)
 
         // Still want to borrow books?
 
-        while(continueQ)
-        {
-        Console.WriteLine();
-        Console.WriteLine("Would you like to borrow another book? Y to borrow a book / N to complete visit.");
-        string continueChoice = Console.ReadLine().ToLower().Trim();
+    while(continueQ)
+    {
+    Console.WriteLine();
+    Console.WriteLine("Would you like to borrow another book? Y to borrow a book / N to complete visit.");
+    string continueChoice = Console.ReadLine().ToLower().Trim();
 
-        if (continueChoice == "y")
-        {
-            stillWorking = true;
-            continueQ = true;
-            Console.WriteLine();
-        }
-        else if (continueChoice == "n")
-        {
-            stillWorking = false;
-            continueQ = false;
-            Console.WriteLine();
-        }
-        else
-        {
-            Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
-        }
+    if (continueChoice == "y")
+    {
+        stillBrowsing = true;
+        continueQ = true;
+        Console.WriteLine();
     }
+    else if (continueChoice == "n")
+    {
+        stillBrowsing = false;
+        continueQ = false;
+        Console.WriteLine();
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
+    }
+}
    
 }
 
@@ -249,7 +249,6 @@ static int BookSelection(List<Book>books)
     return -1;
     
 }
-
 
 
 static void PrintHeader()
