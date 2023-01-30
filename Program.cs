@@ -145,14 +145,15 @@ while (true)
     if (returnOption == "y")
     {
         Console.WriteLine("Which book would you like to return?");
-        string bookToReturn = Console.ReadLine().Trim();
-        int returnIndex = bag.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
+        string bookToReturn = Console.ReadLine().Trim().ToLower();
+        int returnIndex = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
         try// When the user types in a book that doesn't exist or is not in their bag, it will return an exception
         {
-            if (bag[returnIndex].Available == false)
+            if (ourBooks[returnIndex].Available == false)
             {
-                bag[returnIndex].Return();
-                bag.Remove(bag[returnIndex]);
+                ourBooks[returnIndex].Return();
+                //bag.Remove(bag[returnIndex]);
+                Console.WriteLine($"You have return {ourBooks[returnIndex].Title}");
                 
             }
             else
@@ -205,6 +206,10 @@ static int BookSelection(List<Book>books)
         if (indexChoice == -1 || indexChoice > books.Count)
         {
             Console.WriteLine("Book not found. Please re-enter title.");
+        }
+        else if (books[indexChoice].Available == false)
+        {
+            Console.WriteLine("Book already checked out.");
         }
         else
         {
