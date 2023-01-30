@@ -28,6 +28,7 @@ while (continueQ)
             stillWorking = false;
             continueQ = false;
             taskSelection = false;
+            break;
             
         }
         else if (userTask == "b")
@@ -40,7 +41,6 @@ while (continueQ)
             Console.WriteLine("Invalid input. R for return / B for borrow.");
         }
     }
-
 
 
     while (stillWorking)
@@ -66,7 +66,6 @@ while (continueQ)
             break;
         }
 
-        
         else if (choice == "s")
         {
             //search
@@ -113,7 +112,6 @@ while (continueQ)
                     Console.WriteLine();
 
                     //targeting book choice + checkout
-
                     int selectedBook = BookSelection(ourBooks);
                     bag.Add(ourBooks[selectedBook]);
                     ourBooks[selectedBook].UpdateDueDate();
@@ -131,14 +129,16 @@ while (continueQ)
         }
         else //validate choice - list or search
         {
-            Console.WriteLine("Invalid input, please try again.");
+            Console.WriteLine("Invalid input. L to list / S to search.");
         }
     }
-// Asking to continue
-    while (continueQ)
-    {
+
+        // Still want to borrow books?
+
+        while(continueQ)
+        {
         Console.WriteLine();
-        Console.WriteLine("Would you like to go again? y/n");
+        Console.WriteLine("Would you like to borrow another book? Y to borrow a book / N to complete visit.");
         string continueChoice = Console.ReadLine().ToLower().Trim();
 
         if (continueChoice == "y")
@@ -146,65 +146,65 @@ while (continueQ)
             stillWorking = true;
             continueQ = true;
             Console.WriteLine();
-            break;
         }
         else if (continueChoice == "n")
         {
             stillWorking = false;
             continueQ = false;
             Console.WriteLine();
-            break;
         }
         else
         {
-            Console.WriteLine("Invalid input.");
+            Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
         }
     }
+   
 }
 
+bool stillReturning = true;
 //Return books
-while (true)
-{
-    
-    Console.WriteLine("Return a book? Y/N");
-    string returnOption = Console.ReadLine().ToLower().Trim();
 
-    if (returnOption == "y")
+
+    while (stillReturning)
     {
-        Console.WriteLine("Which book would you like to return?");
-        string bookToReturn = Console.ReadLine().Trim().ToLower();
-        int returnIndex = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
-        try// When the user types in a book that doesn't exist or is not in their bag, it will return an exception
+        Console.WriteLine("Return a book? Y to return a book / N to complete visit.");
+        string returnOption = Console.ReadLine().ToLower().Trim();
+
+        if (returnOption == "y")
         {
-            if (ourBooks[returnIndex].Available == false)
+            Console.WriteLine("Which book would you like to return?");
+            string bookToReturn = Console.ReadLine().Trim().ToLower();
+            int returnIndex = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
+            
+            try// When the user types in a book that doesn't exist or is not in their bag, it will return an exception
             {
-                ourBooks[returnIndex].Return();
-                //bag.Remove(bag[returnIndex]);
-                Console.WriteLine($"You have return {ourBooks[returnIndex].Title}");
-                
+                if (ourBooks[returnIndex].Available == false)
+                {
+                    ourBooks[returnIndex].Return();
+                    //bag.Remove(bag[returnIndex]);
+                    Console.WriteLine($"You have returned {ourBooks[returnIndex].Title}");
+
+                }
+                else
+                {
+                    Console.WriteLine("Cannot return - this book was already available.");
+                }
             }
-            else
+            catch (ArgumentOutOfRangeException)
             {
-                Console.WriteLine("Unable to return.");
+                Console.WriteLine("Cannot return this item.");
             }
-        }  
-        catch(ArgumentOutOfRangeException) 
-        {
-            Console.WriteLine("Book was not found checked out.");
         }
-        
-        break;
+        else if (returnOption == "n")
+        {
+            stillReturning = false;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Y to return a book / N to complete visit.");
+        }
     }
-    else if (returnOption == "n")
-    {
-        Console.WriteLine("not returning");
-        break;
-    }
-    else
-    {
-        Console.WriteLine("Wrong input. Returning Y/N");
-    }
-}
+   
 
 Console.WriteLine("These are the books you are checking out:\n");
 PrintHeader();
