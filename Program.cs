@@ -18,6 +18,7 @@ bool taskSelection = true;
 bool stillBrowsing = true;
 bool stillSearching = true;
 bool repeatBorrowing = true;
+bool stillReturning = true;
 
 Console.WriteLine("Welcome to your local library!");
 
@@ -25,7 +26,7 @@ while (continueQ)
 {
     while (taskSelection)
     {
-        Console.WriteLine("Would you like to return books, or borrow? R for return / B for borrow.");
+        Console.Write("\nWould you like to return something, or borrow? R for return / B for borrow: ");
         string userTask = Console.ReadLine().ToLower().Trim();
 
         if (userTask == "r")
@@ -43,7 +44,7 @@ while (continueQ)
         }
         else
         {
-            Console.WriteLine("Invalid input. R for return / B for borrow.");
+            Console.WriteLine("Invalid input. Please try again.");
         }
     }
 
@@ -52,19 +53,20 @@ while (continueQ)
     {
         stillBrowsing = true;
         stillSearching = true;
-        string choice = "";
-        Console.WriteLine("You can display a list of all books, or search for a book. L to list / S to search.");
-        choice = Console.ReadLine().ToLower().Trim();
+        Console.Write("\nYou can display a list of all media, or search. L to list / S to search: ");
+        string choice = Console.ReadLine().ToLower().Trim();
 
         if (choice == "l")
         {
             //list all book info
+            Console.WriteLine();
             PrintHeader();
             foreach (Book b in ourBooks.OrderBy(b => b.mediaType).ThenBy(b => b.Title))
             {
                 Console.WriteLine(b.GetDetails());
             }
 
+            Console.WriteLine();
             int selectedBook = BookSelection(ourBooks);
             bag.Add(ourBooks[selectedBook]);
             ourBooks[selectedBook].UpdateDueDate();
@@ -77,13 +79,13 @@ while (continueQ)
             while (stillSearching)
             {
                
-                Console.WriteLine("You can search by author or title keyword. A for author / K for keyword.");
+                Console.Write("\nYou can search by author or title keyword. A for author / K for keyword: ");
                 string searchType = Console.ReadLine().ToLower().Trim();
 
                 if (searchType == "a")
                 {
                     //search by author
-                    Console.Write("Please enter author name: ");
+                    Console.Write("\nPlease enter author name: ");
                     string searchAuthor = Console.ReadLine().Trim().ToLower();
                     //Console.Clear();
 
@@ -91,6 +93,7 @@ while (continueQ)
 
                     if (authorResults.Count > 0 && (authorResults.Any(b => b.Available == true)))
                     {
+                        Console.WriteLine();
                         PrintHeader();
                         foreach (Book b in authorResults)
                         {
@@ -100,7 +103,7 @@ while (continueQ)
                     }
                     else
                     {
-                        Console.WriteLine("No books available.");
+                        Console.WriteLine("No items available.");
                         break;
                     }
 
@@ -150,13 +153,13 @@ while (continueQ)
                 else
                 {
                     //validate choice - search by author or keyword
-                    Console.WriteLine("Invalid input, please try again.");
+                    Console.WriteLine("Invalid input. Please try again.");
                 }
             }
         }
         else //validate choice - list or search
         {
-            Console.WriteLine("Invalid input. L to list / S to search.");
+            Console.WriteLine("Invalid input. Please try again.");
         }
     }
 
@@ -165,7 +168,7 @@ while (continueQ)
     while(repeatBorrowing)
     {
     Console.WriteLine();
-    Console.WriteLine("Would you like to borrow another book? Y to borrow a book / N to complete visit.");
+    Console.Write("Would you like to borrow another item? Y to borrow / N to move on: ");
     string continueChoice = Console.ReadLine().ToLower().Trim();
 
     if (continueChoice == "y")
@@ -184,7 +187,7 @@ while (continueQ)
     }
     else
     {
-        Console.WriteLine("Invalid input. Y to borrow a book / N to finish borrowing.");
+        Console.WriteLine("Invalid input. Please try again.");
     }
 
         break;
@@ -192,19 +195,29 @@ while (continueQ)
 
 }
 
-bool stillReturning = true;
-//Return books
 
+//Return books
 List<Book> bookDrop = new List<Book>();
 
     while (stillReturning)
     {
-        Console.WriteLine("Return a book? Y to return a book / N to complete visit.");
+        Console.Write("\nReturn an item? Y to return / N to complete visit: ");
         string returnOption = Console.ReadLine().ToLower().Trim();
 
         if (returnOption == "y")
         {
-            Console.WriteLine("Which book would you like to return?");
+
+            Console.Clear();
+            Console.WriteLine("These are the items currently checked out:\n");
+            PrintHeader();
+            foreach (Book b in ourBooks.Where(b => b.Available == false).OrderBy(b => b.mediaType).ThenBy(b => b.Title))
+            {
+                Console.WriteLine(b.GetDetails());
+            }
+
+
+
+            Console.Write("\nWhich item would you like to return: ");
             string bookToReturn = Console.ReadLine().Trim().ToLower();
             int returnIndex = ourBooks.FindIndex(b => b.Title.ToLower().Contains(bookToReturn));
 
@@ -235,7 +248,7 @@ List<Book> bookDrop = new List<Book>();
                 }
                 else
                 {
-                    Console.WriteLine("Cannot return - this book was already available.");
+                    Console.WriteLine("Cannot return - this item is already on the shelf.");
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -249,7 +262,7 @@ List<Book> bookDrop = new List<Book>();
         }
         else
         {
-            Console.WriteLine("Invalid input. Y to return a book / N to complete visit.");
+            Console.WriteLine("Invalid input. Please try again.");
         }
     }
 
@@ -261,11 +274,11 @@ if (bag.Any(b => b.Title == "Fahrenheit 451"))
 }
 if (bag.Count <= 0)
 {
-    Console.WriteLine("You aren't taking any books home today.");
+    Console.WriteLine("You aren't taking any items home today.");
 }
 else
 {
-    Console.WriteLine("These are the books you are checking out:\n");
+    Console.WriteLine("These are the items you are checking out:");
     PrintHeader();
 
     foreach (Book b in bag.Where(b => b.Available == false))
@@ -276,11 +289,11 @@ else
 
 if (bookDrop.Count <= 0)
 {
-    Console.WriteLine("\nYou did not return any books today.");
+    Console.WriteLine("\nYou did not return any items today.");
 }
 else
 {
-    Console.WriteLine("\nYou returned:\n");
+    Console.WriteLine("\nYou returned:");
     PrintHeader();
 
     foreach (Book b in bookDrop)
@@ -290,7 +303,7 @@ else
 }
 
 
-Console.WriteLine("\nGoodbye.");
+Console.WriteLine("\nThank you for visiting! Goodbye.");
 
 TextWriter(ourBooks);
 
@@ -301,17 +314,17 @@ static int BookSelection(List<Book>books)
     
     while (true)
     {
-        Console.WriteLine("Please enter the title you'd like to check out:");
+        Console.Write("Please enter the title you'd like to check out: ");
         string bchoice = Console.ReadLine().Trim().ToLower();
         int indexChoice = books.FindIndex(b => b.Title.ToLower().Contains(bchoice));
 
         if (indexChoice == -1 || indexChoice > books.Count)
         {
-            Console.WriteLine("Book not found. Please re-enter title.");
+            Console.WriteLine("Item not found. Please re-enter title.");
         }
         else if (books[indexChoice].Available == false)
         {
-            Console.WriteLine("Book already checked out.");
+            Console.WriteLine("Item already checked out.\n");
         }
         else
         {

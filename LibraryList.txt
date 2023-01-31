@@ -5,10 +5,10 @@ The Great Gatsby|F. Scott Fitzgerald|Fiction|Book|False|2/13/2023
 Murder on the Orient Express|Agatha Christie|Mystery|Book|True|
 The Hound of the Baskervilles|Arthur Conan Doyle|Mystery|Book|True|
 Gone with the Wind|Margaret Mitchell|Romance|Book|False|2/14/2023
-Jane Eyre|Jane Austen|Romance|Book|False|2/13/2023
-Dune|Frank Herbert|Science fiction|Book|False|2/14/2023
-Ender's Game|Orson Scott Card|Science fiction|Book|True|
-The Hobbit|J. R. R. Tolkien|Fantasy|Book|False|2/14/2023
+Jane Eyre|Jane Austen|Romance|Book|True|
+Dune|Frank Herbert|Science fiction|Book|True|
+Ender's Game|Orson Scott Card|Science fiction|Book|False|2/14/2023
+The Hobbit|J. R. R. Tolkien|Fantasy|Book|True|
 The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|Book|False|2/14/2023
 Spider-Man: Miles Morales|Sony|Adventure|Game|True|
 NBA 2K23|2K Games|Sports|Game|True|
