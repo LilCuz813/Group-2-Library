@@ -270,7 +270,7 @@ List<Book> bookDrop = new List<Book>();
 Console.Clear();
 if (bag.Any(b => b.Title == "Fahrenheit 451"))
 {
-    TorchIt();
+    TorchIt(ourBooks);
 }
 if (bag.Count <= 0)
 {
@@ -428,12 +428,42 @@ static void TextWriter(List<Book>booklist)
     writer.Close();//always CLOSE
 }
 
-static void TorchIt()
+static void TorchIt(List<Book> ourBooks)
 {
     Console.Clear();
-    Console.WriteLine("YOU HAVE BURNED DOWN THE LIBRARY....Love, CBJE Productions");
-    Console.ReadLine();
-    //Environment.Exit(0);
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.BackgroundColor = ConsoleColor.DarkYellow;
+    Console.WriteLine("YOU HAVE BURNED DOWN THE LIBRARY....Love, CBJE Productions\n");
+    Thread.Sleep(1000);
+
+    foreach (Book b in ourBooks)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine($"YOU HAVE BURNED {b.Title}");
+        Thread.Sleep(1000);
+        Console.WriteLine();
+    }
+
+    string filePath = "../../../LibraryList.txt";
+    StreamWriter writer = new StreamWriter(filePath);
+    writer.WriteLine("");
+    writer.Close();
+
+    for (int i = 0; i <= 30; i++)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.BackgroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        Thread.Sleep(500);
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+    }
+    Environment.Exit(0);
+
+    //To run program after this choice, delete LibraryList.txt from Solutions Explorer.
 }
 
 
