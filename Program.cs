@@ -86,7 +86,7 @@ while (continueQ)
 
                     List<Book> authorResults = ourBooks.OrderBy(b => b.Author).Where(b => b.Author.ToLower().Contains(searchAuthor)).ToList();
 
-                    if (authorResults.Count > 0)
+                    if (authorResults.Count > 0 && (authorResults.Any(b => b.Available == true)))
                     {
                         PrintHeader();
                         foreach (Book b in authorResults)
@@ -97,8 +97,8 @@ while (continueQ)
                     }
                     else
                     {
-                        Console.WriteLine("No search results");
-                        continue;
+                        Console.WriteLine("No books available.");
+                        break;
                     }
 
                     //targeting book choice + checkout
@@ -118,7 +118,7 @@ while (continueQ)
                     List<Book> keywordResults = ourBooks.OrderBy(b => b.Title).Where(b => b.Title.ToLower().Contains(searchKeyword)).ToList();
 
 
-                    if (keywordResults.Count > 0)
+                    if (keywordResults.Count > 0 && (keywordResults.Any(b => b.Available == true)))
                     {
                         PrintHeader();
                         foreach (Book b in keywordResults)
@@ -130,7 +130,7 @@ while (continueQ)
                     else
                     {
                         Console.WriteLine("No search results");
-                        continue;
+                        break;
                     }
 
              
@@ -320,8 +320,8 @@ static int BookSelection(List<Book>books)
 
 static void PrintHeader()
 {
-    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", $"Title", $"Author", $"Genre", $"Available", $"DueDate"));
-    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15}", "========", "========", "========", "========", "========"));
+    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15} {5, -15}", $"Title", $"Author", $"Genre", $"Media Type", $"Available", $"DueDate"));
+    Console.WriteLine(String.Format("{0,-40} {1,-25} {2,-20} {3, -15} {4, -15} {5, -15}", "========", "========", "========", "========", "========", "========"));
 }
 
 
@@ -334,18 +334,18 @@ static List<Book> TextReader()
     if (File.Exists(filePath) == false)
     {
         StreamWriter tempWriter = new StreamWriter(filePath);
-        tempWriter.WriteLine("The Catcher in the Rye|J. D. Salinger|Fiction");
-        tempWriter.WriteLine("To Kill a Mockingbird|Harper Lee|Fiction");
-        tempWriter.WriteLine("Great Expectations|Charles Dickens|Fiction");
-        tempWriter.WriteLine("The Great Gatsby|F. Scott Fitzgerald|Fiction");
-        tempWriter.WriteLine("Murder on the Orient Express|Agatha Christie|Mystery");
-        tempWriter.WriteLine("The Hound of the Baskervilles|Arthur Conan Doyle|Mystery");
-        tempWriter.WriteLine("Gone with the Wind|Margaret Mitchell|Romance");
-        tempWriter.WriteLine("Jane Eyre|Jane Austen|Romance");
-        tempWriter.WriteLine("Dune|Frank Herbert|Science fiction");
-        tempWriter.WriteLine("Ender's Game|Orson Scott Card|Science fiction");
-        tempWriter.WriteLine("The Hobbit|J. R. R. Tolkien|Fantasy");
-        tempWriter.WriteLine("The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy");
+        tempWriter.WriteLine("The Catcher in the Rye|J. D. Salinger|Fiction|Book");
+        tempWriter.WriteLine("To Kill a Mockingbird|Harper Lee|Fiction|Book");
+        tempWriter.WriteLine("Great Expectations|Charles Dickens|Fiction|Book");
+        tempWriter.WriteLine("The Great Gatsby|F. Scott Fitzgerald|Fiction|Book");
+        tempWriter.WriteLine("Murder on the Orient Express|Agatha Christie|Mystery|Book");
+        tempWriter.WriteLine("The Hound of the Baskervilles|Arthur Conan Doyle|Mystery|Book");
+        tempWriter.WriteLine("Gone with the Wind|Margaret Mitchell|Romance|Book");
+        tempWriter.WriteLine("Jane Eyre|Jane Austen|Romance|Book");
+        tempWriter.WriteLine("Dune|Frank Herbert|Science fiction|Book");
+        tempWriter.WriteLine("Ender's Game|Orson Scott Card|Science fiction|Book");
+        tempWriter.WriteLine("The Hobbit|J. R. R. Tolkien|Fantasy|Book");
+        tempWriter.WriteLine("The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|Book");
         tempWriter.Close();
     }
 
@@ -367,14 +367,14 @@ static List<Book> TextReader()
             //parts[1] Author
             //parts[2] Genre
             Book book;
-            if (parts.Length <= 3)
+            if (parts.Length <= 4)
             {
-                book = new Book(parts[0], parts[1], parts[2]);
+                book = new Book(parts[0], parts[1], parts[2], parts[3]);
             }
             else
             {
-                DateOnly? duedate = (parts[4].Length < 1) ? null : DateOnly.Parse(parts[4]);
-                book = new Book(parts[0], parts[1], parts[2], bool.Parse(parts[3]), duedate);
+                DateOnly? duedate = (parts[5].Length < 1) ? null : DateOnly.Parse(parts[5]);
+                book = new Book(parts[0], parts[1], parts[2], parts[3],bool.Parse(parts[4]), duedate);
             }
             booklist.Add(book);
         }
@@ -389,8 +389,9 @@ static void TextWriter(List<Book>booklist)
     StreamWriter writer = new StreamWriter(filePath);
     foreach (Book book in booklist)
     {
-        writer.WriteLine($"{book.Title}|{book.Author}|{book.Genre}|{book.Available}|{book.DueDate}");
+        writer.WriteLine($"{book.Title}|{book.Author}|{book.Genre}|{book.mediaType}|{book.Available}|{book.DueDate}");
     }
     writer.Close();//always CLOSE
 }
 
+Console.ReadLine();
