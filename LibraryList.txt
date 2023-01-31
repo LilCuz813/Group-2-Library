@@ -1,12 +1,24 @@
 The Catcher in the Rye|J. D. Salinger|Fiction|Book|True|
-To Kill a Mockingbird|Harper Lee|Fiction|Book|False|2/14/2023
+To Kill a Mockingbird|Harper Lee|Fiction|Book|True|
 Great Expectations|Charles Dickens|Fiction|Book|True|
 The Great Gatsby|F. Scott Fitzgerald|Fiction|Book|False|2/13/2023
 Murder on the Orient Express|Agatha Christie|Mystery|Book|True|
 The Hound of the Baskervilles|Arthur Conan Doyle|Mystery|Book|True|
-Gone with the Wind|Margaret Mitchell|Romance|Book|True|
+Gone with the Wind|Margaret Mitchell|Romance|Book|False|2/14/2023
 Jane Eyre|Jane Austen|Romance|Book|False|2/13/2023
-Dune|Frank Herbert|Science fiction|Book|True|
+Dune|Frank Herbert|Science fiction|Book|False|2/14/2023
 Ender's Game|Orson Scott Card|Science fiction|Book|True|
-The Hobbit|J. R. R. Tolkien|Fantasy|Book|True|
+The Hobbit|J. R. R. Tolkien|Fantasy|Book|False|2/14/2023
 The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|Book|False|2/14/2023
+Spider-Man: Miles Morales|Sony|Adventure|Game|True|
+NBA 2K23|2K Games|Sports|Game|True|
+Call of Duty MW2|Treyarch|FPS|Game|True|
+Knockout City|Velan Studios|Sports|Game|True|
+Fall Guys|Epic Games|Adventure|Game|True|
+Fahrenheit 451|CBJE Productions|Mayhem|Game|True|
+Gotham Knights|Warner Bros|Adventure|Game|True|
+PubG|PubG Studios|Battle Royale|Game|True|
+Mario Kart 8|Nintendo|Racing|Game|True|
+Brawlhalla|Ubisoft|Fighting|Game|True|
+Rocket League|Psyonix|Sports|Game|True|
+Apex Legends|EA|Battle Royale|Game|True|

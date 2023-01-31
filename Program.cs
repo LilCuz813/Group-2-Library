@@ -4,6 +4,9 @@ using static System.Reflection.Metadata.BlobBuilder;
 using Validation;
 using System.ComponentModel;
 using System.Linq;
+using System.IO;
+using System.Net.Sockets;
+using System.Security.Cryptography;
 
 //Book list
 List<Book> ourBooks = TextReader();
@@ -57,7 +60,7 @@ while (continueQ)
         {
             //list all book info
             PrintHeader();
-            foreach (Book b in ourBooks.OrderBy(b => b.Title))
+            foreach (Book b in ourBooks.OrderBy(b => b.mediaType).ThenBy(b => b.Title))
             {
                 Console.WriteLine(b.GetDetails());
             }
@@ -251,6 +254,11 @@ List<Book> bookDrop = new List<Book>();
     }
 
 //Summary of activity
+Console.Clear();
+if (bag.Any(b => b.Title == "Fahrenheit 451"))
+{
+    TorchIt();
+}
 if (bag.Count <= 0)
 {
     Console.WriteLine("You aren't taking any books home today.");
@@ -268,11 +276,11 @@ else
 
 if (bookDrop.Count <= 0)
 {
-    Console.WriteLine("You did not return any books today.");
+    Console.WriteLine("\nYou did not return any books today.");
 }
 else
 {
-    Console.WriteLine("You returned:");
+    Console.WriteLine("\nYou returned:\n");
     PrintHeader();
 
     foreach (Book b in bookDrop)
@@ -346,11 +354,24 @@ static List<Book> TextReader()
         tempWriter.WriteLine("Ender's Game|Orson Scott Card|Science fiction|Book");
         tempWriter.WriteLine("The Hobbit|J. R. R. Tolkien|Fantasy|Book");
         tempWriter.WriteLine("The Lion, the Witch and the Wardrobe|C. S. Lewis|Fantasy|Book");
-        tempWriter.Close();
+        tempWriter.WriteLine("Spider - Man: Miles Morales|Sony|Adventure|Game");
+        tempWriter.WriteLine("NBA 2K23|2K Games|Sports|Game");
+        tempWriter.WriteLine("Call of Duty MW2|Treyarch|FPS|Game");
+        tempWriter.WriteLine("Knockout City|Velan Studios|Sports|Game");
+        tempWriter.WriteLine("Fall Guys|Epic Games|Adventure|Game");
+        tempWriter.WriteLine("Fahrenheit 451|CBJE Productions|Mayhem|Game");
+        tempWriter.WriteLine("Gotham Knights|Warner Bros|Adventure|Game");
+        tempWriter.WriteLine("PubG|PubG Studios|Battle Royale|Game");
+        tempWriter.WriteLine("Mario Kart 8|Nintendo|Racing|Game");
+        tempWriter.WriteLine("Brawlhalla|Ubisoft|Fighting|Game");
+        tempWriter.WriteLine("Rocket League|Psyonix|Sports|Game");
+        tempWriter.WriteLine("Apex Legends|EA|Battle Royale|Game");
+
+    tempWriter.Close();
     }
 
     List<Book> booklist = new List<Book> { };
-
+    
     //Collecting all students in the file
     StreamReader reader = new StreamReader(filePath);
     while (true)
@@ -393,5 +414,14 @@ static void TextWriter(List<Book>booklist)
     }
     writer.Close();//always CLOSE
 }
+
+static void TorchIt()
+{
+    Console.Clear();
+    Console.WriteLine("YOU HAVE BURNED DOWN THE LIBRARY....Love, CBJE Productions");
+    Console.ReadLine();
+    //Environment.Exit(0);
+}
+
 
 Console.ReadLine();
